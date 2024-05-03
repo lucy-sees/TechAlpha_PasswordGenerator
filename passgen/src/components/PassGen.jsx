@@ -64,7 +64,7 @@ export const PassGen = () => {
     };    
 
     return (
-        <Container className="passgen" id='#passgen'>
+        <Container className="passgen" id="passgen">
             <Row>
                 <Col>
                     <h1>Password Generator</h1>
