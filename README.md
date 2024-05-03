@@ -43,7 +43,7 @@ A simple password generator that can generate strong passwords for your accounts
 
 ## 📺 Presentation <a name="video-link"></a>
 
-[See the project presentation here]()
+[See the project presentation here](https://drive.google.com/file/d/1wjCh2fjqkBg2kbgUEPyzgToXkRpt2lbv/view?usp=sharing)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
