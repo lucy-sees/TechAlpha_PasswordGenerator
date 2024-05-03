@@ -1,17 +1,17 @@
 /** Custom Font **/
 @font-face {
 	font-family: Centra;
-	src: url('./assets/font/CentraNo2-Bold.ttf');
+	src: url('./assets/font/MonoLisa-Bold.ttf');
 	font-weight: 700;
 }
 @font-face {
 	font-family: Centra;
-	src: url('./assets/font/CentraNo2-Medium.ttf');
+	src: url('./assets/font/MonoLisa-Medium.ttf');
 	font-weight: 500;
 }
 @font-face {
 	font-family: Centra;
-	src: url('./assets/font/CentraNo2-Book.ttf');
+	src: url('./assets/font/MonoLisa-Regular.ttf');
 	font-weight: 400;
 }
 
@@ -82,6 +82,19 @@ p.danger {
 	color: red;
 }
 /** Navbar **/
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.logo img {
+  width: 60px;
+  height: 60px;
+}
+.logo p {
+  color: #fff;
+}
 nav.navbar {
   padding: 18px 0;
   position: fixed;
@@ -240,15 +253,12 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   background-size: cover;
   background-repeat: no-repeat;
 }
-.banner .tagline {
-  font-weight: 700;
-  letter-spacing: 0.8px;
-  padding: 8px 10px;
-  background: linear-gradient(90.21deg, rgba(170, 54, 124, 0.5) -5.91%, rgba(74, 47, 189, 0.5) 111.58%);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  font-size: 20px;
-  margin-bottom: 16px;
-  display: inline-block;
+.banner .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 .banner h1 {
   font-size: 65px;
@@ -307,18 +317,35 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 .footer {
   padding: 0 0 50px 0;
   background-color: #121212;
-  /* background-image: url('./assets/img/footer-bg.png'); */
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
 }
 .footer img {
-  width: 26%;
+  width: 60px;
+  height: 60px;
 }
 .footer p {
   font-weight: 400;
   font-size: 14px;
   color: #B8B8B8;
   letter-spacing: 0.5px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.logo-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.logo-footer p {
+  width: fit-content;
+}
+.footer .social-icon {
+  display: flex;
+  justify-content: center;
   margin-top: 20px;
 }
