@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container, Row, Col, Form, Button, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Form, Spinner, Alert } from 'react-bootstrap';
 
 //password generator component
 //this component will generate a random password based on the user's input
@@ -13,32 +13,55 @@ export const PassGen = () => {
     const [hasLowercase, setHasLowercase] = useState(false);
     const [hasUppercase, setHasUppercase] = useState(false);
     const [hasNumbers, setHasNumbers] = useState(false);
-    const [hasSymbols, setHasSymbols] = useState(false); 
+    const [hasSymbols, setHasSymbols] = useState(false);
+    const [passwordCopied, setPasswordCopied] = useState(false); // State for password copied alert
 
     const [password, setPassword] = useState(''); // State for the generated password
 
-    const handleGeneratePassword = () => {
+    const handleGeneratePassword = (e) => {
+        // Prevent default form submission
+        e.preventDefault();
+
         setIsLoading(true);
 
-        let characters = '';
-        if (hasLowercase) characters += 'abcdefghijklmnopqrstuvwxyz';
-        if (hasUppercase) characters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        if (hasNumbers) characters += '0123456789';
-        if (hasSymbols) characters += '!@#$%^&*()_+~`|}{[]:;?><,./-=';
+        // Define character sets
+        const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+        const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const numberChars = '0123456789';
+        const specialChars = '!@#$%^&*()_+~`|}{[]:;?><,./-=';
 
-        let password = '';
+        // Build the character set based on the switches
+        let characters = '';
+        if (hasLowercase) characters += lowercaseChars;
+        if (hasUppercase) characters += uppercaseChars;
+        if (hasNumbers) characters += numberChars;
+        if (hasSymbols) characters += specialChars;
+
+        // Generate password
+        let generatedPassword = '';
         for (let i = 0; i < passwordLength; i++) {
-            password += characters.charAt(Math.floor(Math.random() * characters.length));
+            generatedPassword += characters.charAt(Math.floor(Math.random() * characters.length));
         }
 
-        setPassword(password); // Store the generated password
+        // Set the generated password to the state
+        setPassword(generatedPassword);
 
+        // Stop the loading spinner
         setIsLoading(false);
     };
 
     const handleCopyPassword = () => {
-        navigator.clipboard.writeText(password); // Copy the password to the clipboard
-    };
+        // Copy the password to the clipboard
+        navigator.clipboard.writeText(password);
+    
+        // Set passwordCopied to true
+        setPasswordCopied(true);
+    
+        // Set a timer to revert passwordCopied back to false after a few seconds
+        setTimeout(() => {
+            setPasswordCopied(false);
+        }, 2000);
+    };    
 
     return (
         <Container className="passgen" id='#passgen'>
@@ -56,13 +79,17 @@ export const PassGen = () => {
                             <Form.Check type="switch" id="numbers-switch" label="Numbers" onChange={e => setHasNumbers(e.target.checked)} />
                             <Form.Check type="switch" id="special-chars-switch" label="Special Characters" onChange={e => setHasSymbols(e.target.checked)} />
                         </Form.Group>
-                        <Button variant="primary" type="submit" onClick={handleGeneratePassword} disabled={isLoading}>
-                            {isLoading ? <Spinner animation="border" size="sm" /> : 'Generate Password'}
-                        </Button>
                     </Form>
                 </Col>
             </Row>
             <Row>
+                <Col>
+                    <button type="submit" onClick={handleGeneratePassword} disabled={isLoading}>
+                        {isLoading ? <Spinner animation="border" size="sm" /> : 'Generate Password'}
+                    </button>
+                </Col>
+            </Row>
+            <Row className="password">
                 <Col>
                     <Form.Group>
                         <Form.Control type="text" value={password} readOnly />
@@ -71,9 +98,10 @@ export const PassGen = () => {
             </Row>
             <Row>
                 <Col>
-                    <Button variant="primary" type="submit" onClick={handleCopyPassword}>
+                    <button type="submit" onClick={handleCopyPassword}>
                         Copy Password
-                    </Button>
+                    </button>
+                    {passwordCopied && <Alert variant="success">Password copied to clipboard!</Alert>}
                 </Col>
             </Row>
         </Container>
